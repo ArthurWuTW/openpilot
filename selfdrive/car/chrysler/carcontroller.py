@@ -3,7 +3,8 @@ from selfdrive.boardd.boardd import can_list_to_can_capnp
 from selfdrive.car import apply_toyota_steer_torque_limits
 from selfdrive.car.chrysler.chryslercan import create_lkas_hud, create_lkas_command, \
                                                create_wheel_buttons, \
-                                               create_chimes
+                                               create_chimes, \
+                                               create_openpilot_path_poly
 from selfdrive.car.chrysler.values import ECU, CAR
 from selfdrive.can.packer import CANPacker
 
