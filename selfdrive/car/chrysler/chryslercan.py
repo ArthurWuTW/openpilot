@@ -110,3 +110,18 @@ def create_wheel_buttons(frame):
   dat = start + [counter]
   dat = dat + [calc_checksum(dat)]
   return make_can_msg(0x23b, str(bytearray(dat)))
+
+
+def create_openpilot_path_poly(packer, apply_steer, moving_fast, frame):
+  values = {
+    "LKAS_STEERING_TORQUE": apply_steer,
+    "LKAS_HIGH_TORQUE": int(moving_fast),
+    "COUNTER": frame % 0x10,
+  }
+
+  dat = packer.make_can_msg("OPENPILOT_PATH_POLY", 0, values)[2]
+  dat = [ord(i) for i in dat][:-1]
+  checksum = calc_checksum(dat)
+
+  values["CHECKSUM"] = checksum
+  return packer.make_can_msg("OPENPILOT_PATH_POLY", 0, values)
