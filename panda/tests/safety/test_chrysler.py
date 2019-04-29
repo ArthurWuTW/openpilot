@@ -82,7 +82,7 @@ class TestChryslerSafety(unittest.TestCase):
 
   def test_enable_control_allowed_from_cruise(self):
     to_push = libpandasafety_py.ffi.new('CAN_FIFOMailBox_TypeDef *')
-    to_push[0].RIR = 0x1f4 << 21
+    to_push[0].RIR = 0x309 << 21 #1f4
     to_push[0].RDLR = 0x380000
 
     self.safety.chrysler_rx_hook(to_push)
@@ -90,7 +90,7 @@ class TestChryslerSafety(unittest.TestCase):
 
   def test_disable_control_allowed_from_cruise(self):
     to_push = libpandasafety_py.ffi.new('CAN_FIFOMailBox_TypeDef *')
-    to_push[0].RIR = 0x1f4 << 21
+    to_push[0].RIR = 0x309 << 21 #1f4
     to_push[0].RDLR = 0
 
     self.safety.set_controls_allowed(1)
