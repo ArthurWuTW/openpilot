@@ -25,6 +25,7 @@ class PathPlanner(object):
 
     context = zmq.Context()
     self.plan = messaging.pub_sock(context, service_list['pathPlan'].port)
+    self.planC = messaging.pub_sock(context, service_list['pathPlanToCan'].port)
     self.livempc = messaging.pub_sock(context, service_list['liveMpc'].port)
 
     self.setup_mpc(CP.steerRateCost)
@@ -120,6 +121,25 @@ class PathPlanner(object):
     plan_send.pathPlan.paramsValid = bool(live_parameters.liveParameters.valid)
 
     self.plan.send(plan_send.to_bytes())
+
+    planC_send = messaging.new_message()
+    planC_send.init('pathPlanToCan')
+    planC_send.pathPlan.laneWidth = float(self.MP.lane_width)
+    planC_send.pathPlan.dPoly = map(float, self.MP.d_poly)
+    planC_send.pathPlan.cPoly = map(float, self.MP.c_poly)
+    planC_send.pathPlan.cProb = float(self.MP.c_prob)
+    planC_send.pathPlan.lPoly = map(float, l_poly)
+    planC_send.pathPlan.lProb = float(self.MP.l_prob)
+    planC_send.pathPlan.rPoly = map(float, r_poly)
+    planC_send.pathPlan.rProb = float(self.MP.r_prob)
+    planC_send.pathPlan.angleSteers = float(self.angle_steers_des_mpc)
+    planC_send.pathPlan.rateSteers = float(rate_desired)
+    planC_send.pathPlan.angleOffset = float(angle_offset_average)
+    planC_send.pathPlan.valid = bool(plan_valid)
+    planC_send.pathPlan.paramsValid = bool(live_parameters.liveParameters.valid)
+
+    self.planC.send(plan_send.to_bytes())
+
 
     dat = messaging.new_message()
     dat.init('liveMpc')
