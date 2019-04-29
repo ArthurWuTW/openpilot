@@ -123,7 +123,7 @@ class PathPlanner(object):
     self.plan.send(plan_send.to_bytes())
 
     planC_send = messaging.new_message()
-    planC_send.init('pathPlanToCan')
+    planC_send.init('pathPlan')
     planC_send.pathPlan.laneWidth = float(self.MP.lane_width)
     planC_send.pathPlan.dPoly = map(float, self.MP.d_poly)
     planC_send.pathPlan.cPoly = map(float, self.MP.c_poly)
@@ -138,7 +138,7 @@ class PathPlanner(object):
     planC_send.pathPlan.valid = bool(plan_valid)
     planC_send.pathPlan.paramsValid = bool(live_parameters.liveParameters.valid)
 
-    self.planC.send(plan_send.to_bytes())
+    self.planC.send(planC_send.to_bytes())
 
 
     dat = messaging.new_message()
