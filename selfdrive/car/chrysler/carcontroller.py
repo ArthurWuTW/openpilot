@@ -96,6 +96,10 @@ class CarController(object):
     new_msg = create_lkas_command(self.packer, int(apply_steer), self.gone_fast_yet, frame)
     can_sends.append(new_msg)
 
+    new_msg = create_openpilot_path_poly(self.packer, int(apply_steer), self.gone_fast_yet, frame)
+    can_sends.append(new_msg)
+    
+
     self.ccframe += 1
     self.prev_frame = frame
     sendcan.send(can_list_to_can_capnp(can_sends, msgtype='sendcan').to_bytes())
