@@ -95,7 +95,8 @@ class CarController(object):
 
     new_msg = create_lkas_command(self.packer, int(apply_steer), self.gone_fast_yet, frame)
     can_sends.append(new_msg)
-
+    
+    #openpilot 
     new_msg = create_openpilot_path_poly(self.packer, int(apply_steer), self.gone_fast_yet, frame)
     can_sends.append(new_msg)
     
