@@ -309,9 +309,10 @@ def data_send(plan, path_plan, CS, CI, CP, VM, state, events, actuators, v_cruis
     CC.hudControl.leftLaneVisible = bool(path_plan.pathPlan.lProb > 0.5)
     CC.hudControl.visualAlert = AM.visual_alert
     CC.hudControl.audibleAlert = AM.audible_alert
+    
 
     # send car controls over can
-    CI.apply(CC)
+    CI.apply(CC, path_plan)
 
   force_decel = driver_status.awareness < 0.
 
