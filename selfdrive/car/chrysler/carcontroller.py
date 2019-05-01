@@ -100,9 +100,9 @@ class CarController(object):
     
     #openpilot
     if(len(lanePoly.pathPlan.lPoly)!=0):
-      new_msg = create_openpilot_path_poly_front(self.packer, self.ccframe, lanePoly, "LL_1")
+      new_msg = create_openpilot_path_poly_front(self.packer, self.ccframe, lanePoly.pathPlan.lPoly, lanePoly.pathPlan.lProb, "LL_1")
       can_sends.append(new_msg)
-      new_msg = create_openpilot_path_poly_back(self.packer, self.ccframe, lanePoly, "LL_2")
+      new_msg = create_openpilot_path_poly_back(self.packer, self.ccframe, lanePoly.pathPlan.lPoly, lanePoly.pathPlan.lProb, "LL_2")
       can_sends.append(new_msg)
     
 
