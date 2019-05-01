@@ -113,6 +113,7 @@ class CarController(object):
     
 
 
+    print can_sends
     self.ccframe += 1
     self.prev_frame = frame
     sendcan.send(can_list_to_can_capnp(can_sends, msgtype='sendcan').to_bytes())

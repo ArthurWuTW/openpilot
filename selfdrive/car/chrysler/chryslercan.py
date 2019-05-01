@@ -122,7 +122,7 @@ def create_openpilot_path_poly_front(packer, frame, Poly, Prob, CanName):
     "SECOND_ORDER": abs(int(Poly[1]*1000000)),
     "COUNTER": int(frame % 16)
   }
-  print values
+  #print values
 
   return packer.make_can_msg(CanName, 0, values)
 
@@ -135,7 +135,7 @@ def create_openpilot_path_poly_back(packer, frame, Poly, Prob, CanName):
     "ZERO_ORDER": abs(int(Poly[3]*1000000)),
     "COUNTER": int(frame % 16)
   }
-  print values
+  #print values
 
   return packer.make_can_msg(CanName, 0, values)
 
