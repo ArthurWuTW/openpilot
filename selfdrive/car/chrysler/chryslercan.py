@@ -120,7 +120,7 @@ def create_openpilot_path_poly_front(packer, frame, Poly, Prob, CanName):
     "THIRD_ORDER": abs(int(Poly[0]*1000000)),
     "SECOND_ORDER_SIGN": int(Poly[1]>0),
     "SECOND_ORDER": abs(int(Poly[1]*1000000)),
-    "COUNTER": int(frame % 16)
+    "COUNTER": int(frame % 256)
   }
   #print values
 
@@ -133,7 +133,7 @@ def create_openpilot_path_poly_back(packer, frame, Poly, Prob, CanName):
     "FIRST_ORDER": abs(int(Poly[2]*1000000)),
     "ZERO_ORDER_SIGN": int(Poly[3]>0),
     "ZERO_ORDER": abs(int(Poly[3]*1000000)),
-    "COUNTER": int(frame % 16)
+    "COUNTER": int(frame % 256)
   }
   #print values
 
