@@ -110,7 +110,12 @@ class CarController(object):
       can_sends.append(new_msg)
       new_msg = create_openpilot_path_poly_back(self.packer, self.ccframe, lanePoly.pathPlan.rPoly, lanePoly.pathPlan.rProb, "RL_2")
       can_sends.append(new_msg)
-    
+
+    if(len(lanePoly.pathPlan.dPoly)!=0):
+      new_msg = create_openpilot_path_poly_front(self.packer, self.ccframe, lanePoly.pathPlan.dPoly, lanePoly.pathPlan.cProb, "DL_1")
+      can_sends.append(new_msg)
+      new_msg = create_openpilot_path_poly_back(self.packer, self.ccframe, lanePoly.pathPlan.dPoly, lanePoly.pathPlan.cProb, "DL_2")
+      can_sends.append(new_msg)
 
 
     print can_sends
