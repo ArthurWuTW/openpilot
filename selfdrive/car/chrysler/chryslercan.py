@@ -117,9 +117,9 @@ def create_openpilot_path_poly_front(packer, frame, Poly, Prob, CanName):
   values = {
     "PROB": int(Prob*10),
     "THIRD_ORDER_SIGN": int(bool(Poly[0]>0)),
-    "THIRD_ORDER": int(abs(int(Poly[0]*1000000))),
+    "THIRD_ORDER": int(abs(int(Poly[0]*100000000))),  #third order *10^8
     "SECOND_ORDER_SIGN": int(bool(Poly[1]>0)),
-    "SECOND_ORDER": int(abs(int(Poly[1]*1000000))),
+    "SECOND_ORDER": int(abs(int(Poly[1]*1000000))),  # 10^6
     "COUNTER": int(frame % 256)
   }
   print values
@@ -130,14 +130,11 @@ def create_openpilot_path_poly_back(packer, frame, Poly, Prob, CanName):
   #print lanePoly.pathPlan.lPoly[3]
   values = {
     "FIRST_ORDER_SIGN": int(bool(Poly[2]>0)),
-    "FIRST_ORDER": int(abs(int(Poly[2]*1000000))),
+    "FIRST_ORDER": int(abs(int(Poly[2]*1000000))),    # 10^6
     "ZERO_ORDER_SIGN": int(bool(Poly[3]>0)),
-    "ZERO_ORDER": int(abs(int(Poly[3]*1000000))),
+    "ZERO_ORDER": int(abs(int(Poly[3]*1000000))),     # 10^6
     "COUNTER": int(frame % 256)
   }
   print values
 
   return packer.make_can_msg(CanName, 0, values)
-
-
- 
