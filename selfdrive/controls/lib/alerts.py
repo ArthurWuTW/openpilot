@@ -592,7 +592,7 @@ ALERTS = [
   # permanent alerts
   Alert(
       "steerUnavailablePermanent",
-      "LKAS Fault: Restart the car to engage",
+      "LKAS Unavailable",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
