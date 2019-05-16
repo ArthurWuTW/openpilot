@@ -75,7 +75,7 @@ class PathPlanner(object):
                         self.MP.l_prob, self.MP.r_prob, self.MP.p_prob, curvature_factor, v_ego_mpc, self.MP.lane_width)
 
     # reset to current steer angle if not active or overriding
-    if active:
+    if True:#active:
       delta_desired = self.mpc_solution[0].delta[1]
       rate_desired = math.degrees(self.mpc_solution[0].rate[0] * VM.sR)
     else:
