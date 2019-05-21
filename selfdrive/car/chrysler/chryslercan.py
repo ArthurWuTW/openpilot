@@ -122,7 +122,7 @@ def create_openpilot_path_poly_front(packer, frame, Poly, Prob, CanName):
     "SECOND_ORDER": int(abs(int(Poly[1]*1000000))),  # 10^6
     "COUNTER": int(frame % 256)
   }
-  print values
+  #print values
 
   return packer.make_can_msg(CanName, 0, values)
 
@@ -135,6 +135,17 @@ def create_openpilot_path_poly_back(packer, frame, Poly, Prob, CanName):
     "ZERO_ORDER": int(abs(int(Poly[3]*1000000))),     # 10^6
     "COUNTER": int(frame % 256)
   }
-  print values
+  #print values
 
+  return packer.make_can_msg(CanName, 0, values)
+
+def create_openpilot_steering_angle(packer, frame, actuators, CanName):
+  values = {
+    "STEERING_ANGLE": int(abs(actuators.steer * 10000)),
+    "STEERING_ANGLE_SIGN": int(bool(actuators.steer>0)),
+    "STEERING_ANGLE_TARGET": int(abs(actuators.steerAngle * 10000)),
+    "STEERING_ANGLE_TARGET_SIGN": int(bool(actuators.steerAngle>0)),
+    "COUNTER": int(frame % 256)
+  }
+  #print values
   return packer.make_can_msg(CanName, 0, values)

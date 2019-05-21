@@ -22,7 +22,8 @@ class LatControl(object):
     self.pid.reset()
 
   def update(self, active, v_ego, angle_steers, steer_override, CP, VM, path_plan):
-    if v_ego < 0.3 or not active:
+    #if v_ego < 0.3 or not active:
+    if False:
       output_steer = 0.0
       self.pid.reset()
     else:
@@ -41,8 +42,13 @@ class LatControl(object):
         steer_feedforward -= path_plan.angleOffset   # subtract the offset, since it does not contribute to resistive torque
         steer_feedforward *= v_ego**2  # proportional to realigning tire momentum (~ lateral accel)
       deadzone = 0.0
-      output_steer = self.pid.update(self.angle_steers_des, angle_steers, check_saturation=(v_ego > 10), override=steer_override,
-                                     feedforward=steer_feedforward, speed=v_ego, deadzone=deadzone)
+      #output_steer = self.pid.update(self.angle_steers_des, angle_steers, check_saturation=(v_ego > 10), override=steer_override,
+      output_steer = self.pid.update(self.angle_steers_des, angle_steers, check_saturation=(v_ego > 10), override=False,feedforward=steer_feedforward, speed=v_ego, deadzone=deadzone)
 
     self.sat_flag = self.pid.saturated
+
+    #print "angle_steers_des----------"
+    #print self.angle_steers_des
+    #print "output_steer"
+    #print output_steer
     return output_steer, float(self.angle_steers_des)

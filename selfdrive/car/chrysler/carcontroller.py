@@ -6,7 +6,8 @@ from selfdrive.car.chrysler.chryslercan import create_lkas_hud, create_lkas_comm
                                                create_wheel_buttons, \
                                                create_chimes, \
                                                create_openpilot_path_poly_front, \
-                                               create_openpilot_path_poly_back
+                                               create_openpilot_path_poly_back, \
+                                               create_openpilot_steering_angle
 from selfdrive.car.chrysler.values import ECU, CAR
 from selfdrive.can.packer import CANPacker
 
@@ -43,6 +44,11 @@ class CarController(object):
 
   def update(self, sendcan, enabled, CS, frame, actuators,
              pcm_cancel_cmd, hud_alert, audible_alert, lanePoly):
+    #print "-----destinate-------"
+    #print actuators.steerAngle
+    #print "pid"
+    #print actuators.steer 
+    
     # this seems needed to avoid steering faults and to force the sync with the EPS counter
     frame = CS.lkas_counter
     if self.prev_frame == frame:
@@ -116,7 +122,10 @@ class CarController(object):
       can_sends.append(new_msg)
       new_msg = create_openpilot_path_poly_back(self.packer, self.ccframe, lanePoly.pathPlan.dPoly, lanePoly.pathPlan.cProb, "DL_2")
       can_sends.append(new_msg)
-
+    
+    #if(True):
+    #  new_msg = create_openpilot_steering_angle(self.packer, self.ccframe, actuators, "OP_STEERING_ANGLE")
+    #  can_sends.append(new_msg)
 
     #print can_sends
     self.ccframe += 1

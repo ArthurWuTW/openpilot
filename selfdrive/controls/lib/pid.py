@@ -62,7 +62,8 @@ class PIController(object):
     self.p = error * self.k_p
     self.f = feedforward * self.k_f
 
-    if override:
+    #if override:
+    if False:
       self.i -= self.i_unwind_rate * float(np.sign(self.i))
     else:
       i = self.i + error * self.k_i * self.i_rate
